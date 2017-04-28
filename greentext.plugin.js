@@ -1,58 +1,71 @@
 //META{"name":"greentext"}*//
 
-var greentext = function(){};
+class greentext {
+  constructor() {
+    this.css = `
+      .markup > .greentext {
+        color: #789922;
+      }
+    `;
 
-function htmlEncode(s) {
-  return $("<div>").text(s).html();
-}
+    this.htmlEncode = (s) => {
+      return $("<div>").text(s).html();
+    };
 
-greentext.main = function (elem) {
-  if ($(elem).find(".greentext") == []) return;
-  var lines = $(elem).text().split("\n");
-  lines.forEach(function (i) {
-    i = htmlEncode(i);
-    if (i.substr(0, 4) == "&gt;") {
-      $(elem).html(function (_, html) {
-        return html.replace(i, '<span class="greentext">' + i + '</span>');
+    this.main = (elem) => {
+      if ($(elem).children(".greentext").length > 0) return;
+      var self = this;
+      var lines = $(elem).text().split("\n");
+      lines.forEach((i) => {
+        i = self.htmlEncode(i);
+        if (i.substr(0, 4) == "&gt;") {
+          $(elem).html(function (_, html) {
+            return html.replace(i, '<span class="greentext">' + i + '</span>');
+          });
+        }
+      });
+    };
+
+    this.allGreen = () => {
+      var self = this;
+      $(".markup").each(function () {
+        self.main(this);
+      });
+    };
+
+    this.noGreen = () => {
+      $(".greentext").replaceWith(function () {
+        return $(this).text();
       });
     }
-  });
-};
+  }
 
-greentext.prototype.start = function () {
-  $(".markup").each(function () {
-    greentext.main(this);
-  });
-};
+  start() {
+    this.allGreen();
+  }
 
-greentext.prototype.load = function () {
-  BdApi.injectCSS("greentext-stylesheet", ".markup>.greentext{color:#789922!important;}");
-};
+  stop() {
+    this.noGreen();
+  }
 
-greentext.prototype.onMessage = function () {
-  $(".markup").each(function () {
-    greentext.main(this);
-  });
-};
+  load() {
+    BdApi.injectCSS("greentext-stylesheet", this.css);
+  }
 
-greentext.prototype.onSwitch = function () {
-  $(".markup").each(function () {
-    greentext.main(this);
-  });
-};
+  unload() {
+    this.noGreen();
+  }
 
-greentext.prototype.getName = function () {
-  return "greentext plugin";
-};
+  onMessage() {
+    this.allGreen();
+  }
 
-greentext.prototype.getDescription = function () {
-  return "Make lines that start with \">\" into greentext";
-};
+  onSwitch() {
+    this.allGreen();
+  }
 
-greentext.prototype.getVersion = function () {
-  return "0.0.1";
-};
-
-greentext.prototype.getAuthor = function () {
-  return "kaloncpu57";
-};
+  getName        () { return "greentext plugin"; }
+  getDescription () { return "Make lines that start with \">\" into greentext"; }
+  getVersion     () { return "0.1.0"; }
+  getAuthor      () { return "kaloncpu57"; }
+}
