@@ -2,19 +2,42 @@
 
 class hexColorPreview {
   constructor() {
-    this.whatever = "whatever";
+    this.regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
+    this.hexElem = '<div class="hex-value" style="color: $&;">$&<div class="hex-preview" style="background: $&;"></div></div>';
   }
 
   wrapAll() {
-    let regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
-    $(".comment .markup").each(function () {
-      if ($(this).find(".hex-value").length) return;
-      if ($(this).text().match(regHex) !== null) {
-        $(this).html(function (_, html) {
-          return html.replace(regHex, '<div class="hex-value" style="color: $&;">$&<div class="hex-preview" style="background: $&;"></div></div>');
-        });
-      }
+    let self = this;
+    $(".markup").each(function () {
+      self.wrapHex(this);
     });
+  }
+
+  wrapHex(elem) {
+    let self = this;
+    if ($(elem).find(".hex-value").length) return;
+    if ($(elem).text().match(self.regHex) !== null) {
+      $(elem).contents()
+        .filter(function () {
+          return this.nodeType == Node.TEXT_NODE; // only replace hex values found in text
+        })
+        .each(function () {
+          let html = $(this).text().replace(self.regHex, self.hexElem);
+          $(this).replaceWith(html);
+        });
+
+      $(elem).find("code span").each(function () {
+        if ($(this).text().match(self.regHex) !== null) {
+          let html = $(this).text().replace(self.regHex, self.hexElem);
+          $(this).replaceWith(html);
+        }
+      });
+
+      $(elem).find("code.inline").each(function () {
+        let html = $(this).text().replace(self.regHex, self.hexElem);
+        $(this).html(html);
+      });
+    }
   }
 
   cleanUp() {
@@ -93,39 +116,23 @@ class hexColorPreview {
     this.cleanUp();
   }
 
-  getTimeout() {
-    return this.timeout;
-  }
-
-  onMessage() {
-    if (this.timeout) return;
-    this.wrapAll();
-    this.timeout = true;
-    let self = this;
-    setTimeout(function () {
-      self.timeout = false;
-    }, 200);
-  }
-
   onSwitch() {
     this.wrapAll();
-    // this.timeout = true;
-    // let self = this;
-    // setTimeout(function () {
-    //   self.timeout = false;
-    // }, 500);
   }
 
-  // observer() {
-  //   return '';
-  // }
+  observer(e) {
+    let elem = e.target;
+    if(elem.className == "markup") {
+      this.wrapHex(elem);
+    }
+  }
 
   getSettingsPanel() {
     return `
     <div style="background: black;color: white;">
       <label>
         <span>Preview Size (px)</span>
-        <input id="hexPreview-size" type="number" value="25" />
+        <input id="hexPreview-size" type="number" value="${this.size}" />
       </label>
       <br/>
       <button onclick="hexColorPreview.prototype.updateSettings()">Update</button> <button onclick="hexColorPreview.prototype.updateSettings(true)">Save & Update</button>
@@ -135,7 +142,7 @@ class hexColorPreview {
 
   getName        () { return "Hex Color Preview"; }
   getDescription () { return "Hover over hex colors to get a popup preview of that color."; }
-  getVersion     () { return "0.0.3"; }
+  getVersion     () { return "0.0.5"; }
   getAuthor      () { return "kaloncpu57"; }
 
 }
