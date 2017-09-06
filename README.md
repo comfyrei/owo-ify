@@ -15,7 +15,7 @@ Download: [greentext.plugin.js](greentext.plugin.js)
 
 ## Hex Color Preview
 
-Hex color values will show up as the color the represent. You can hover over the value to see a popup of that color.
+Hex color values in a message will show up as the color they represent. You can hover over the value to see a popup of that color.
 
 - [x] Add preview size option
 - [ ] Fix possible issue of slowing down Discord
