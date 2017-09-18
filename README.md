@@ -26,10 +26,3 @@ Hex color values will show up as the color the represent. You can hover over the
 ![Screenshot of Hex Color Preview](/resources/hexColorPreview-2.png?raw=true)
 
 Download: [hexColorPreview.plugin.js](hexColorPreview.plugin.js)
-
-## owo-ify plugin
-Replace all l's and r's in your messages with w's
-
-![Screenshot of owo-ify](/resources/owo-ify.png?raw=true)
-
-Download: [owo-ify.plugin.js](owo-ify.plugin.js)
