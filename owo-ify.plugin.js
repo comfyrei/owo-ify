@@ -7,6 +7,12 @@ class owoify {
     };
   }
 
+  setup() {
+    let self = this;
+    let textarea = document.querySelector(".channel-text-area-default textarea");
+    textarea.addEventListener("input", self.makeOwO);
+  }
+
   cleanUp() {
     let textarea = document.querySelector(".channel-text-area-default textarea");
     textarea.removeEventListener("input", this.makeOwO);
@@ -16,9 +22,7 @@ class owoify {
 
   start() {
     console.log("OwO what's this?");
-    let self = this;
-    let textarea = document.querySelector(".channel-text-area-default textarea");
-    textarea.addEventListener("input", self.makeOwO);
+    this.setup();
   }
 
   stop() {
@@ -29,8 +33,12 @@ class owoify {
     this.cleanUp();
   }
 
+  onSwitch() {
+    this.setup();
+  }
+
   getName        () { return "owo-ify"; }
   getDescription () { return "Replaces all l's and r's in your own messages with w's"; }
-  getVersion     () { return "0.1.0"; }
+  getVersion     () { return "0.2.0"; }
   getAuthor      () { return "kaloncpu57"; }
 }
