@@ -64,6 +64,16 @@ class hexColorPreview {
     }
   }
 
+  inject(name, options) {
+    let element = document.getElementById(options.id);
+    if (element) element.parentElement.removeChild(element);
+    element = document.createElement(name);
+    for (let attr in options)
+      element.setAttribute(attr, options[attr]);
+    document.head.appendChild(element);
+    return element;
+  }
+
   updateSettings(save) {
     let input = $("#hexPreview-size").val();
     if (isNaN(input)) {
@@ -73,50 +83,47 @@ class hexColorPreview {
       this.updateStyle();
       if (save === true) {
         bdPluginStorage.set("hexColorPreview", "size", this.size);
+        PluginUtilities.showToast(`Settings updated and saved!`);
+      } else {
+        PluginUtilities.showToast(`Settings updated!`);
       }
     }
   }
 
-  start() {
+  initialize() {
+    PluginUtilities.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/kaloncpu57/discord-plugins/master/hexColorPreview.plugin.js");
+
+    //load settings
+    this.size = bdPluginStorage.get("hexColorPreview", "size");
+    if (this.size === null) this.size = "25";
+    this.updateStyle();
+
     this.wrapAll();
+  }
+
+  start() {
+    let libraryScript = this.inject('script', {
+      type: 'text/javascript',
+      id: 'zeresLibraryScript',
+      src: 'https://rauenzi.github.io/BetterDiscordAddons/Plugins/PluginLibrary.js'
+    });
+
+    if (typeof window.ZeresLibrary !== "undefined") {
+      this.initialize();
+    } else {
+      libraryScript.addEventListener("load", () => { this.initialize(); });
+    }
   }
 
   stop() {
     this.cleanUp();
   }
 
-  load() {
-    this.size = bdPluginStorage.get("hexColorPreview", "size");
-    if (this.size === null) this.size = "25";
-    this.updateStyle();
-  }
+  load() {}
 
   unload() {
     this.cleanUp();
   }
-
-  // getTimeout() {
-  //   return this.timeout;
-  // }
-
-  // onMessage() {
-  //   if (this.timeout) return;
-  //   this.wrapAll();
-  //   this.timeout = true;
-  //   let self = this;
-  //   setTimeout(function () {
-  //     self.timeout = false;
-  //   }, 200);
-  // }
-
-  // onSwitch() {
-  //   this.wrapAll();
-  //   this.timeout = true;
-  //   let self = this;
-  //   setTimeout(function () {
-  //     self.timeout = false;
-  //   }, 500);
-  // }
 
   observer({ addedNodes }) {
     if(addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('chat')
@@ -150,7 +157,7 @@ class hexColorPreview {
 
   getName        () { return "Hex Color Preview"; }
   getDescription () { return "Hover over hex colors to get a popup preview of that color."; }
-  getVersion     () { return "0.1.3"; }
+  getVersion     () { return "0.1.4"; }
   getAuthor      () { return "kaloncpu57"; }
 
 }
