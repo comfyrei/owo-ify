@@ -19,8 +19,9 @@ Hex color values in a message will show up as the color they represent. You can 
 
 - [x] Add preview size option
 - [x] Fix possible issue of slowing down Discord
-- [ ] Add option to leave hex values as normal text color, but keep hover preview
-- [ ] Add option to keep hex values as their color, but remove hover preview
+- [x] Add option to leave hex values as normal text color, but keep hover preview
+- [x] Add option to keep hex values as their color, but remove hover preview
+- [ ] Maybe fix cut off for preview sizes that are too big(?)
 
 ![Screenshot of Hex Color Preview](/resources/hexColorPreview.png?raw=true)
 ![Screenshot of Hex Color Preview](/resources/hexColorPreview-2.png?raw=true)
