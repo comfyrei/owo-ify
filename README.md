@@ -4,15 +4,6 @@
 # Plugins
 My different plugins.
 
-## greentext plugin
-Turn lines that begin with ">" into [greentext](http://www.urbandictionary.com/define.php?term=greentext).
-
-![Screenshot of greentext](/resources/greentext.png?raw=true)
-
-This will not show up for people without the plugin. It's more of a theme for yourself than an extra feature.
-
-Download: [greentext.plugin.js](greentext.plugin.js)
-
 ## Hex Color Preview
 
 Hex color values in a message will show up as the color they represent. You can hover over the value to see a popup of that color.
@@ -34,3 +25,14 @@ Replace all l's and r's in your messages with w's when the message is sent
 ![Screenshot of owo-ify](/resources/owo-ify.png?raw=true)
 
 Download: [owo-ify.plugin.js](owo-ify.plugin.js)
+
+## greentext plugin
+Turn lines that begin with ">" into [greentext](http://www.urbandictionary.com/define.php?term=greentext).
+
+![Screenshot of greentext](/resources/greentext.png?raw=true)
+
+This will not show up for people without the plugin. It's more of a theme for yourself than an extra feature.
+
+- [ ] Basically rework this whole plugin
+
+Download: [greentext.plugin.js](greentext.plugin.js)
