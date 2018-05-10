@@ -28,7 +28,7 @@ Hex color values in a message will show up as the color they represent. You can 
 Download: [hexColorPreview.plugin.js](hexColorPreview.plugin.js)
 
 ## owo-ify plugin
-Replace all l's and r's in your messages with w's
+Replace all l's and r's in your messages with w's when the message is sent
 
 ![Screenshot of owo-ify](/resources/owo-ify.png?raw=true)
 
