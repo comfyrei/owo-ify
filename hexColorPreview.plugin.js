@@ -6,15 +6,17 @@ class hexColorPreview {
   }
 
   wrapAll() {
-    let regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
-    $(".comment .markup").each(function () {
-      if ($(this).find(".hex-value").length) return;
-      if ($(this).text().match(regHex) !== null) {
-        $(this).html(function (_, html) {
-          return html.replace(regHex, '<div class="hex-value" style="color: $&;">$&<div class="hex-preview" style="background: $&;"></div></div>');
-        });
-      }
-    });
+    setTimeout(function () {
+      let regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
+      $(".comment .markup").each(function () {
+        if ($(this).find(".hex-value").length) return;
+        if ($(this).text().match(regHex) !== null) {
+          $(this).html(function (_, html) {
+            return html.replace(regHex, '<div class="hex-value" style="color: $&;">$&<div class="hex-preview" style="background: $&;"></div></div>');
+          });
+        }
+      });
+    }, 100);
   }
 
   cleanUp() {
@@ -93,32 +95,38 @@ class hexColorPreview {
     this.cleanUp();
   }
 
-  getTimeout() {
-    return this.timeout;
-  }
-
-  onMessage() {
-    if (this.timeout) return;
-    this.wrapAll();
-    this.timeout = true;
-    let self = this;
-    setTimeout(function () {
-      self.timeout = false;
-    }, 200);
-  }
-
-  onSwitch() {
-    this.wrapAll();
-    // this.timeout = true;
-    // let self = this;
-    // setTimeout(function () {
-    //   self.timeout = false;
-    // }, 500);
-  }
-
-  // observer() {
-  //   return '';
+  // getTimeout() {
+  //   return this.timeout;
   // }
+
+  // onMessage() {
+  //   if (this.timeout) return;
+  //   this.wrapAll();
+  //   this.timeout = true;
+  //   let self = this;
+  //   setTimeout(function () {
+  //     self.timeout = false;
+  //   }, 200);
+  // }
+
+  // onSwitch() {
+  //   this.wrapAll();
+  //   this.timeout = true;
+  //   let self = this;
+  //   setTimeout(function () {
+  //     self.timeout = false;
+  //   }, 500);
+  // }
+
+  observer({ addedNodes }) {
+    if(addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('chat')
+    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('markup')
+    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('message')
+    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('hide-overflow')
+    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('messages-wrapper')) {
+      this.wrapAll();
+    }
+  }
 
   getSettingsPanel() {
     return `

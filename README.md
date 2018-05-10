@@ -18,7 +18,7 @@ Download: [greentext.plugin.js](greentext.plugin.js)
 Hex color values in a message will show up as the color they represent. You can hover over the value to see a popup of that color.
 
 - [x] Add preview size option
-- [ ] Fix possible issue of slowing down Discord
+- [x] Fix possible issue of slowing down Discord
 - [ ] Add option to leave hex values as normal text color, but keep hover preview
 - [ ] Add option to keep hex values as their color, but remove hover preview
 
