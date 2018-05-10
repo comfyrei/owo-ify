@@ -129,21 +129,28 @@ class hexColorPreview {
   }
 
   getSettingsPanel() {
+    let previewSize = bdPluginStorage.get("hexColorPreview", "size") || "25";
     return `
-    <div style="background: black;color: white;">
-      <label>
-        <span>Preview Size (px)</span>
-        <input id="hexPreview-size" type="number" value="25" />
-      </label>
-      <br/>
-      <button onclick="hexColorPreview.prototype.updateSettings()">Update</button> <button onclick="hexColorPreview.prototype.updateSettings(true)">Save & Update</button>
+    <div class="form">
+      <div class="ui-form-item flexChild-1KGW5q">
+        <h5 class="h5 h5-18_1nd title-3sZWYQ size12-3R0845 height16-2Lv3qA weightSemiBold-NJexzi defaultMarginh5-2mL-bP marginBottom8-AtZOdT">Preview Size</h5>
+        <div class="description description-3_Ncsb formText-3fs7AJ marginBottom8-AtZOdT modeDefault-3a2Ph1 primary-jw0I4K">
+          The size, in pixels, of the color preview pop-up
+          <input class="inputDefault-_djjkz input-cIJ7To size16-14cGz5" id="hexPreview-size" type="number" value="${previewSize}" />
+        </div>
+      </div>
+      <div class="ui-form-item flexChild-1KGW5q">
+        <button class="button-1x2ahC button-38aScr lookFilled-1Gx00P colorGreen-29iAKY sizeSmall-2cSMqn grow-q77ONN" onclick="hexColorPreview.prototype.updateSettings()">Update</button>
+        <br/>
+        <button class="button-1x2ahC button-38aScr lookFilled-1Gx00P colorGreen-29iAKY sizeSmall-2cSMqn grow-q77ONN" onclick="hexColorPreview.prototype.updateSettings(true)">Save & Update</button>
+      </div>
     </div>
     `;
   }
 
   getName        () { return "Hex Color Preview"; }
   getDescription () { return "Hover over hex colors to get a popup preview of that color."; }
-  getVersion     () { return "0.0.3"; }
+  getVersion     () { return "0.1.3"; }
   getAuthor      () { return "kaloncpu57"; }
 
 }
