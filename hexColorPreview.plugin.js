@@ -5,20 +5,30 @@ class hexColorPreview {
     this.whatever = "whatever";
   }
 
+  wrapSingle(elem) {
+    let self = this;
+    let regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
+    if ($(elem).find(".hex-value").length) return;
+    if ($(elem).find(".copybutton")) {
+      $(elem).find(".copybutton").text(" Copy"); //fixes an issue when using the "Copy Code Plugin"
+    }
+    if ($(elem).text().match(regHex) !== null) {
+      $(elem).html(function (_, html) {
+        let text = self.settings.textColor ? `style="color: $&;"` : '';
+        let preview = self.settings.previewPopup ? `<div class="hex-preview" style="background: $&;"></div>` : '';
+        let wrap = `<div class="hex-value" ${text}>$&${preview}</div>`;
+        return html.replace(regHex, wrap);
+      });
+    } else {
+      console.log("No match", elem);
+    }
+  }
+
   wrapAll() {
     let self = this;
     setTimeout(function () {
-      let regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
-      $(".da-markup").each(function () {
-        if ($(this).find(".hex-value").length) return;
-        if ($(this).text().match(regHex) !== null) {
-          $(this).html(function (_, html) {
-            let text = self.settings.textColor ? `style="color: $&;"` : '';
-            let preview = self.settings.previewPopup ? `<div class="hex-preview" style="background: $&;"></div>` : '';
-            let wrap = `<div class="hex-value" ${text}>$&${preview}</div>`;
-            return html.replace(regHex, wrap);
-          });
-        }
+      $(".da-markup").each(function (i, value) {
+        self.wrapSingle(value);
       });
     }, 100);
   }
@@ -101,13 +111,14 @@ class hexColorPreview {
   }
 
   observer({ addedNodes }) {
-    if(addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('chat')
-    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('da-markup')
-    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('message')
-    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('hide-overflow')
-    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('messages-wrapper')) {
-      this.wrapAll();
+    if((addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('da-container'))
+      || (addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('da-message'))) {
+      this.wrapSingle(addedNodes[0].querySelector(".da-markup"));
     }
+  }
+
+  onSwitch() {
+    this.wrapAll();
   }
 
   get defaultSettings() {
@@ -249,7 +260,7 @@ class hexColorPreview {
 
   getName        () { return "Hex Color Preview"; }
   getDescription () { return "Hover over hex colors to get a popup preview of that color. Makes discussing colors much easier."; }
-  getVersion     () { return "0.2.1"; }
+  getVersion     () { return "0.2.2"; }
   getAuthor      () { return "kaloncpu57"; }
   load() { }
   stop() { this.cleanUp(); }
