@@ -33,6 +33,4 @@ Turn lines that begin with ">" into [greentext](http://www.urbandictionary.com/d
 
 This will not show up for people without the plugin. It's more of a theme for yourself than an extra feature.
 
-- [ ] Basically rework this whole plugin
-
 Download: [greentext.plugin.js](greentext.plugin.js)
