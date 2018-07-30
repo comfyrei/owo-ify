@@ -19,8 +19,6 @@ class hexColorPreview {
         let wrap = `<div class="hex-value" ${text}>$&${preview}</div>`;
         return html.replace(regHex, wrap);
       });
-    } else {
-      console.log("No match", elem);
     }
   }
 
@@ -260,7 +258,7 @@ class hexColorPreview {
 
   getName        () { return "Hex Color Preview"; }
   getDescription () { return "Hover over hex colors to get a popup preview of that color. Makes discussing colors much easier."; }
-  getVersion     () { return "0.2.2"; }
+  getVersion     () { return "0.2.3"; }
   getAuthor      () { return "kaloncpu57"; }
   load() { }
   stop() { this.cleanUp(); }
