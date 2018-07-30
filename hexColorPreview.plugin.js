@@ -9,7 +9,7 @@ class hexColorPreview {
     let self = this;
     setTimeout(function () {
       let regHex = new RegExp(/#(?:[0-9a-fA-F]{3}){1,2}\b/, 'g');
-      $(".comment .markup").each(function () {
+      $(".da-markup").each(function () {
         if ($(this).find(".hex-value").length) return;
         if ($(this).text().match(regHex) !== null) {
           $(this).html(function (_, html) {
@@ -102,7 +102,7 @@ class hexColorPreview {
 
   observer({ addedNodes }) {
     if(addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('chat')
-    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('markup')
+    || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('da-markup')
     || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('message')
     || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('hide-overflow')
     || addedNodes.length && addedNodes[0].classList && addedNodes[0].classList.contains('messages-wrapper')) {
@@ -249,7 +249,7 @@ class hexColorPreview {
 
   getName        () { return "Hex Color Preview"; }
   getDescription () { return "Hover over hex colors to get a popup preview of that color. Makes discussing colors much easier."; }
-  getVersion     () { return "0.2.0"; }
+  getVersion     () { return "0.2.1"; }
   getAuthor      () { return "kaloncpu57"; }
   load() { }
   stop() { this.cleanUp(); }
