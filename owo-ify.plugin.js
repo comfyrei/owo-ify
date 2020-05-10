@@ -27,7 +27,7 @@ var owoify = (() => {
 
     initialize() {
       ({PluginUpdater, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI} = ZLibrary);
-      PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), " ");
+      PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/comfyrei/discord-plugins/master/owo-ify.plugin.js");
       this.setup();
     }
 
@@ -80,6 +80,6 @@ var owoify = (() => {
     getName        () { return "owo-ify"; }
     getDescription () { return "Wepwaces aww l's anyd r's iny youw owny messages with w's, n with ny anyd ove with uv Owiginyaw Pwuginy by kaloncpu57 "; }
     getVersion     () { return "0.1.0"; }
-    getAuthor      () { return "rei v3"; }
+    getAuthor      () { return "comfyrei"; }
   }
 })();
