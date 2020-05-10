@@ -7,7 +7,7 @@ var owoify = (() => {
     constructor() {
       this.makeOwO = function (e) {
         if (e.keyCode == 13) {
-          let txt = this.textContent.replace(/r|l/g, "w").replace(/R|L/g, "W");
+          let txt = this.textContent.replace(/r|l/g, "w").replace(/R|L/g, "W").replace(/n/g, "ny").replace(/N/g, "NY").replace(/ove/g, "uv").replace(/OVE/g, "UV");
           this.focus();
           document.execCommand("selectAll");
           document.execCommand("insertText", true, txt);
@@ -27,7 +27,7 @@ var owoify = (() => {
 
     initialize() {
       ({PluginUpdater, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI} = ZLibrary);
-      PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/kaloncpu57/discord-plugins/master/owo-ify.plugin.js");
+      PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), " ");
       this.setup();
     }
 
@@ -78,8 +78,8 @@ var owoify = (() => {
     }
 
     getName        () { return "owo-ify"; }
-    getDescription () { return "Replaces all l's and r's in your own messages with w's"; }
-    getVersion     () { return "0.3.0"; }
-    getAuthor      () { return "kaloncpu57"; }
+    getDescription () { return "Wepwaces aww l's anyd r's iny youw owny messages with w's, n with ny anyd ove with uv Owiginyaw Pwuginy by kaloncpu57 "; }
+    getVersion     () { return "0.1.0"; }
+    getAuthor      () { return "rei v3"; }
   }
 })();
