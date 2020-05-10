@@ -83,7 +83,7 @@ var owoify = (() => {
     }
 
     getName        () { return "owo-ify"; }
-    getDescription () { return "Wepwaces aww l's anyd r's iny youw owny messages with w's, n with ny anyd ove with uv Owiginyaw Pwuginy by kaloncpu57 "; }
+    getDescription () { return "Wepwaces aww l's anyd r's iny youw owny messages with w's, n with ny anyd ove with uv Owiginyaw Pwuginy by kaloncpu57 With help from Xpl0itR"; }
     getVersion     () { return "0.1.4"; }
     getAuthor      () { return "comfyrei"; }
   }
