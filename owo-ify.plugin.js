@@ -8,12 +8,17 @@ var owoify = (() => {
       this.makeOwO = function (e) {
         if (e.keyCode == 13) {
           let txt = this.textContent.replace(/r|l/g, "w").replace(/R|L/g, "W").replace(/n/g, "ny").replace(/N/g, "NY").replace(/ove/g, "uv").replace(/OVE/g, "UV");
+		  if (txt.startsWith("uwu:"))
+				txt = txt.substring(4);
+			else
+				txt = this.textContent;
           this.focus();
           document.execCommand("selectAll");
           document.execCommand("insertText", true, txt);
         }
       };
     }
+
 
     inject(name, options) {
       let element = document.getElementById(options.id);
